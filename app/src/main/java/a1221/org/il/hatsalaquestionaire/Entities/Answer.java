@@ -1,25 +1,37 @@
 package a1221.org.il.hatsalaquestionaire.entities;
 
+import java.io.Serializable;
+
 /**
- * Created by Arele-PC on 12/27/2016.
+ * Created by Daniel on 12/28/2016.
  */
-public class Answer {
 
-   public String hebrewanswer;
-   public String translatedanswer;
-   public String Languageformat;
-   public String questionid;
+public class Answer implements Serializable {
 
+    private static final long serialVersionUID = 6L;
 
-   public Answer(String id, String format,String ans1,String transans1) {
-      questionid = id;
-      hebrewanswer = ans1;
-      translatedanswer = transans1;
-      Languageformat = format;
+    private int _ID;
 
+    private boolean isScale;
 
+    public Answer(int _ID, boolean isScale) {
+        this._ID = _ID;
+        this.isScale = isScale;
+    }
 
+    public int get_ID() {
+        return _ID;
+    }
 
-   }
+    public void set_ID(int _ID) {
+        this._ID = _ID;
+    }
 
+    public boolean isScale() {
+        return isScale;
+    }
+
+    public void setScale(boolean scale) {
+        isScale = scale;
+    }
 }
