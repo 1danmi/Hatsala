@@ -35,11 +35,16 @@ public class DBManager implements IDBManager {
     @Override
     public void getCategories() {
         categories =  new ArrayList<>();
+        categories.add(new Category(1,0,"מחלות"));
+        categories.add(new Category(2,0,"טראומה"));
     }
 
     @Override
     public void getQuestion() {
         questions = new ArrayList<>();
+        questions.add(new Question(1,"כאב ראש"));
+        questions.add(new Question(2,"כאב בטן"));
+        questions.add(new Question(3,"כאב גב"));
     }
 
 

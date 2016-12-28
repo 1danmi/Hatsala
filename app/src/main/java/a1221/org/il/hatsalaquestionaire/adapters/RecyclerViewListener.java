@@ -13,7 +13,7 @@ import android.view.View;
  * Created by Daniel on 12/27/2016.
  */
 
-public class LanguageRecyclerViewListener extends RecyclerView.SimpleOnItemTouchListener {
+public class RecyclerViewListener extends RecyclerView.SimpleOnItemTouchListener {
 
     private static final String TAG = "LanguageRecyclerViewLis";
 
@@ -25,7 +25,7 @@ public class LanguageRecyclerViewListener extends RecyclerView.SimpleOnItemTouch
     private final OnRecyclerClickListener mListener;
     private final GestureDetectorCompat mGestureDetector;
 
-    public LanguageRecyclerViewListener(Context context, final RecyclerView recyclerView, final OnRecyclerClickListener mListener) {
+    public RecyclerViewListener(Context context, final RecyclerView recyclerView, final OnRecyclerClickListener mListener) {
         this.mListener = mListener;
         mGestureDetector = new GestureDetectorCompat(context, new GestureDetector.SimpleOnGestureListener() {
             @Override

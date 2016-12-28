@@ -11,17 +11,17 @@ import android.widget.Toast;
 
 import java.util.ArrayList;
 
-import a1221.org.il.hatsalaquestionaire.entities.Answer;
+import a1221.org.il.hatsalaquestionaire.entities.UIAnswer;
 import a1221.org.il.hatsalaquestionaire.entities.QuestionTranslation;
 import a1221.org.il.hatsalaquestionaire.adapters.AnswersRecyclerAdapter;
-import a1221.org.il.hatsalaquestionaire.adapters.LanguageRecyclerViewListener;
+import a1221.org.il.hatsalaquestionaire.adapters.RecyclerViewListener;
 
-public class QuestionActivity extends AppCompatActivity  implements LanguageRecyclerViewListener.OnRecyclerClickListener  {
+public class QuestionActivity extends AppCompatActivity  implements RecyclerViewListener.OnRecyclerClickListener  {
 
     private RecyclerView answerRecyclerView;
     private AnswersRecyclerAdapter answerRecyclerAdapter;
     private static ArrayList<QuestionTranslation> qList = new ArrayList<QuestionTranslation>();
-    private static ArrayList<Answer> aList = new ArrayList<Answer>();
+    private static ArrayList<UIAnswer> aList = new ArrayList<UIAnswer>();
 
     TextView QHeb;
     TextView Qtranslated;
@@ -58,7 +58,7 @@ public class QuestionActivity extends AppCompatActivity  implements LanguageRecy
         id = 0;
         current = getQuestions(id);
 
-        ArrayList<Answer> currentAns = getAnswers(current);
+        ArrayList<UIAnswer> currentAns = getAnswers(current);
         QHeb.setText(current.HebrewQ);
         Qtranslated.setText(current.TranslatedQ);
         setTitle(current.Title);
@@ -80,7 +80,7 @@ public class QuestionActivity extends AppCompatActivity  implements LanguageRecy
         id = 0;//for now
         current = getQuestions(id);
 
-        ArrayList<Answer> currentAns = getAnswers(current);
+        ArrayList<UIAnswer> currentAns = getAnswers(current);
         QHeb.setText(current.HebrewQ);
         Qtranslated.setText(current.TranslatedQ);
         setTitle(current.Title);
@@ -94,11 +94,11 @@ public class QuestionActivity extends AppCompatActivity  implements LanguageRecy
 
     }
     private void tempaddanswers() {
-        aList.add(new Answer("1","he","Ok","בסדר"));
-        aList.add(new Answer("1","he","very bad","ממש לא טוב"));
-        aList.add(new Answer("1","he","very bad","ממש לא טוב"));
-        aList.add(new Answer("1","he","very bad","ממש לא טוב"));
-        aList.add(new Answer("1","he","very bad","ממש לא טוב"));
+        aList.add(new UIAnswer("1","he","Ok","בסדר"));
+        aList.add(new UIAnswer("1","he","very bad","ממש לא טוב"));
+        aList.add(new UIAnswer("1","he","very bad","ממש לא טוב"));
+        aList.add(new UIAnswer("1","he","very bad","ממש לא טוב"));
+        aList.add(new UIAnswer("1","he","very bad","ממש לא טוב"));
     }
     private void tempAddQuestions() {
         qList.add(new QuestionTranslation("1","איך מרגיש","he","How do feel today? How do u feel?","מה שלומך היום? איך אתה מרגיש?"));
@@ -120,7 +120,7 @@ public class QuestionActivity extends AppCompatActivity  implements LanguageRecy
         }
 
     }
-    private ArrayList<Answer> getAnswers(QuestionTranslation current) {
+    private ArrayList<UIAnswer> getAnswers(QuestionTranslation current) {
         return aList;
         //todo get answer for current question from db
     }
