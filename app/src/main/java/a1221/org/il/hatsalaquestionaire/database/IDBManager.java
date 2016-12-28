@@ -8,5 +8,8 @@ public interface IDBManager {
 
     void getLanguages();
 
-    void addLanguage();
+    void getCategories();
+
+    void getQuestion();
+
 }

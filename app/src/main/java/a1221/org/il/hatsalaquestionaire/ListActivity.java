@@ -13,18 +13,22 @@ import android.widget.SearchView;
 import java.util.ArrayList;
 import java.util.List;
 
-import a1221.org.il.hatsalaquestionaire.adapters.LanguageRecyclerViewListener;
+import a1221.org.il.hatsalaquestionaire.adapters.CategoryRecyclerViewAdapter;
 import a1221.org.il.hatsalaquestionaire.adapters.LanguageRecyclerAdapter;
+import a1221.org.il.hatsalaquestionaire.adapters.LanguageRecyclerViewListener;
+import a1221.org.il.hatsalaquestionaire.adapters.QuestionRecyclerViewAdapter;
 import a1221.org.il.hatsalaquestionaire.database.DBManager;
 import a1221.org.il.hatsalaquestionaire.database.DBManagerFactory;
 import a1221.org.il.hatsalaquestionaire.entities.Language;
 
 public class ListActivity extends AppCompatActivity implements LanguageRecyclerViewListener.OnRecyclerClickListener, android.widget.SearchView.OnQueryTextListener {
 
-    private String mode = "Langs";
+    private String MODE;
     private DBManager dbmanager;
     private RecyclerView listRecyclerView;
     private LanguageRecyclerAdapter languageRecyclerAdapter;
+    private CategoryRecyclerViewAdapter categoryRecyclerViewAdapter;
+    private QuestionRecyclerViewAdapter questionRecyclerViewAdapter;
     private static List<Language> filter(List<Language> languages, String query) {
         final List<Language> filteredModelList = new ArrayList<>();
         for (Language l : languages) {
@@ -40,21 +44,44 @@ public class ListActivity extends AppCompatActivity implements LanguageRecyclerV
     protected void onCreate(Bundle savedInstanceState){
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_list);
-        setTitle("בחר שפה");
+
 
         listRecyclerView = (RecyclerView) findViewById(R.id.language_recycler_view);
         listRecyclerView.setLayoutManager(new LinearLayoutManager(this));
         dbmanager = (DBManager) DBManagerFactory.getManager();
+
+        MODE = "Langs";
+
+        if(MODE.equals("Langs")){
+            setTitle("בחר שפה");
+            setLangugeAdapter();
+        }else if(MODE.equals("Cats")){
+            dbmanager.getCategories();
+
+            languageRecyclerAdapter = new LanguageRecyclerAdapter(getApplicationContext());
+
+            languageRecyclerAdapter.replaceAll(dbmanager.languages);
+
+            listRecyclerView.setAdapter(languageRecyclerAdapter);
+
+            listRecyclerView.addOnItemTouchListener(new LanguageRecyclerViewListener(this, listRecyclerView,this));
+        }
+
+
+
+
+    }
+
+    private void setLangugeAdapter() {
         dbmanager.getLanguages();
+
         languageRecyclerAdapter = new LanguageRecyclerAdapter(getApplicationContext());
 
         languageRecyclerAdapter.replaceAll(dbmanager.languages);
 
-
         listRecyclerView.setAdapter(languageRecyclerAdapter);
 
         listRecyclerView.addOnItemTouchListener(new LanguageRecyclerViewListener(this, listRecyclerView,this));
-
     }
 
     @Override

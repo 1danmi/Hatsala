@@ -10,15 +10,21 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
+import java.util.Comparator;
 import java.util.List;
 
 import a1221.org.il.hatsalaquestionaire.R;
-import a1221.org.il.hatsalaquestionaire.entities.Language;
+import a1221.org.il.hatsalaquestionaire.entities.Question;
 
-public class LanguageRecyclerAdapter extends RecyclerView.Adapter<LanguageRecyclerAdapter.ListViewHolder> {
-    private static final String TAG = "LanguageRecyclerAdapter";
+/**
+ * Created by Daniel on 12/28/2016.
+ */
+
+public class QuestionRecyclerViewAdapter extends RecyclerView.Adapter<QuestionRecyclerViewAdapter.ListViewHolder> {
+    private static final String TAG = "QuestionRecyclerViewAda";
+    private final Comparator<Question> mComparator;
     private Context mContext;
-    SortedList<Language> languages = new SortedList<>(Language.class, new SortedList.Callback<Language>() {
+    SortedList<Question> questions = new SortedList<>(Question.class, new SortedList.Callback<Question>() {
 
         @Override
         public void onInserted(int position, int count) {
@@ -41,34 +47,30 @@ public class LanguageRecyclerAdapter extends RecyclerView.Adapter<LanguageRecycl
         }
 
         @Override
-        public int compare(Language a, Language b) {
-            return Integer.compare(a.getSortID(),b.getSortID());
+        public int compare(Question a, Question b) {
+            return mComparator.compare(a,b);
         }
 
         @Override
-        public boolean areContentsTheSame(Language oldItem, Language newItem) {
-            return oldItem.getLanguage().equals(newItem.getLanguage());
+        public boolean areContentsTheSame(Question oldItem, Question newItem) {
+            return oldItem.getTitle().equals(newItem.getTitle());
         }
 
         @Override
-        public boolean areItemsTheSame(Language item1, Language item2) {
+        public boolean areItemsTheSame(Question item1, Question item2) {
             return item1.get_ID() == item2.get_ID();
         }
     });
 
-
-
-
-
-    public LanguageRecyclerAdapter(Context mContext) {
-        //this.questions = questions;
+    public QuestionRecyclerViewAdapter(Context mContext, Comparator<Question> mComparator) {
+        this.mComparator = mComparator;
         this.mContext = mContext;
     }
 
     @Override
     public int getItemCount() {
         Log.d(TAG, "getItemCount: called");
-        return ((languages != null) && (languages.size() != 0) ? languages.size() : 0);
+        return ((questions != null) && (questions.size() != 0) ? questions.size() : 0);
 
     }
 
@@ -77,19 +79,19 @@ public class LanguageRecyclerAdapter extends RecyclerView.Adapter<LanguageRecycl
         // Called by the layout manager when it wants new data in an existing row
 
 
-        Log.d(TAG, "onBindViewHolder: " + languages.get(position).getLanguage() + " --> " + position);
-        holder.title.setText(languages.get(position).getLanguage());
+        Log.d(TAG, "onBindViewHolder: " + questions.get(position).getTitle() + " --> " + position);
+        holder.title.setText(questions.get(position).getTitle());
 
 
     }
 
-    public void addItem(Language language) {
-        languages.add(language);
-        notifyItemInserted(languages.size());
+    public void addItem(Question question) {
+        questions.add(question);
+        notifyItemInserted(questions.size());
     }
 
     public void removeItem(int position) {
-        languages.remove(languages.get(position));
+        questions.remove(questions.get(position));
         notifyItemRemoved(position);
     }
 
@@ -105,14 +107,9 @@ public class LanguageRecyclerAdapter extends RecyclerView.Adapter<LanguageRecycl
     }
 
 
-    public void loadNewData(SortedList<Language> newLanguages) {
-        this.languages = newLanguages;
-        notifyDataSetChanged();
-    }
 
-
-    public Language getLanguage(int position) {
-        return ((languages != null) && (languages.size() != 0) ? languages.get(position) : null);
+    public Question getQuestion(int position) {
+        return ((questions != null) && (questions.size() != 0) ? questions.get(position) : null);
     }
 
 
@@ -129,39 +126,40 @@ public class LanguageRecyclerAdapter extends RecyclerView.Adapter<LanguageRecycl
         }
     }
 
-    public void add(Language model) {
-        languages.add(model);
+    public void add(Question model) {
+        questions.add(model);
     }
 
-    public void remove(Language model) {
-        languages.remove(model);
+    public void remove(Question model) {
+        questions.remove(model);
     }
 
-    public void add(List<Language> models) {
-        languages.addAll(models);
+    public void add(List<Question> models) {
+        questions.addAll(models);
     }
 
-    public void remove(List<Language> models) {
-        languages.beginBatchedUpdates();
-        for (Language  model : models) {
-            languages.remove(model);
+    public void remove(List<Question> models) {
+        questions.beginBatchedUpdates();
+        for (Question  model : models) {
+            questions.remove(model);
         }
-        languages.endBatchedUpdates();
+        questions.endBatchedUpdates();
     }
 
-    public void addList(List<Language> models) {
-        languages.addAll(models);
+    public void addList(List<Question> models) {
+        questions.addAll(models);
     }
 
-    public void replaceAll(List<Language> models) {
-        languages.beginBatchedUpdates();
-        for (int i = languages.size() - 1; i >= 0; i--) {
-            final Language model = languages.get(i);
+    public void replaceAll(List<Question> models) {
+        questions.beginBatchedUpdates();
+        for (int i = questions.size() - 1; i >= 0; i--) {
+            final Question model = questions.get(i);
             if (!models.contains(model)) {
-                languages.remove(model);
+                questions.remove(model);
             }
         }
-        languages.addAll(models);
-        languages.endBatchedUpdates();
+        questions.addAll(models);
+        questions.endBatchedUpdates();
     }
 }
+

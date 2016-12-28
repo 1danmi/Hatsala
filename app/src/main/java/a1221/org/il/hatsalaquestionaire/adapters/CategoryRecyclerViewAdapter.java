@@ -64,7 +64,7 @@ public class CategoryRecyclerViewAdapter extends RecyclerView.Adapter<CategoryRe
 
     public CategoryRecyclerViewAdapter(Context mContext, Comparator<Category> mComparator) {
         this.mComparator = mComparator;
-        //this.categories = categories;
+        //this.questions = questions;
         this.mContext = mContext;
     }
 
@@ -109,7 +109,7 @@ public class CategoryRecyclerViewAdapter extends RecyclerView.Adapter<CategoryRe
 
 
 
-    public Category getLanguage(int position) {
+    public Category getCategory(int position) {
         return ((categories != null) && (categories.size() != 0) ? categories.get(position) : null);
     }
 

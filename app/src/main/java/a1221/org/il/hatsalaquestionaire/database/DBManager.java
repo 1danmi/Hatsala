@@ -2,7 +2,9 @@ package a1221.org.il.hatsalaquestionaire.database;
 
 import java.util.ArrayList;
 
+import a1221.org.il.hatsalaquestionaire.entities.Category;
 import a1221.org.il.hatsalaquestionaire.entities.Language;
+import a1221.org.il.hatsalaquestionaire.entities.Question;
 
 /**
  * Created by Daniel on 12/27/2016.
@@ -11,6 +13,8 @@ import a1221.org.il.hatsalaquestionaire.entities.Language;
 public class DBManager implements IDBManager {
 
     public static ArrayList<Language> languages;
+    public static ArrayList<Category> categories;
+    public static ArrayList<Question> questions;
 
 
 
@@ -29,7 +33,15 @@ public class DBManager implements IDBManager {
     }
 
     @Override
-    public void addLanguage() {
-
+    public void getCategories() {
+        categories =  new ArrayList<>();
     }
+
+    @Override
+    public void getQuestion() {
+        questions = new ArrayList<>();
+    }
+
+
+
 }
