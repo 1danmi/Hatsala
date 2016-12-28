@@ -11,8 +11,8 @@ import android.widget.Toast;
 
 import java.util.ArrayList;
 
-import a1221.org.il.hatsalaquestionaire.Entities.Answer;
-import a1221.org.il.hatsalaquestionaire.Entities.QuestionTranslation;
+import a1221.org.il.hatsalaquestionaire.entities.Answer;
+import a1221.org.il.hatsalaquestionaire.entities.QuestionTranslation;
 import a1221.org.il.hatsalaquestionaire.adapters.AnswersRecyclerAdapter;
 import a1221.org.il.hatsalaquestionaire.adapters.LanguageRecyclerViewListener;
 

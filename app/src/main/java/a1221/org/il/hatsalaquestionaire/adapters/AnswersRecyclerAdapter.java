@@ -1,8 +1,6 @@
 package a1221.org.il.hatsalaquestionaire.adapters;
 
 import android.content.Context;
-import android.graphics.Color;
-import android.graphics.drawable.Drawable;
 import android.speech.tts.TextToSpeech;
 import android.support.v7.widget.CardView;
 import android.support.v7.widget.RecyclerView;
@@ -15,7 +13,7 @@ import android.widget.TextView;
 
 import java.util.List;
 
-import a1221.org.il.hatsalaquestionaire.Entities.Answer;
+import a1221.org.il.hatsalaquestionaire.entities.Answer;
 import a1221.org.il.hatsalaquestionaire.R;
 
 /**

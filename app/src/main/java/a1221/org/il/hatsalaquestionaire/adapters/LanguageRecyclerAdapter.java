@@ -12,7 +12,6 @@ import android.widget.TextView;
 import java.util.ArrayList;
 import java.util.List;
 
-import a1221.org.il.hatsalaquestionaire.Entities.Answer;
 import a1221.org.il.hatsalaquestionaire.R;
 
 public class LanguageRecyclerAdapter extends RecyclerView.Adapter<LanguageRecyclerAdapter.LanguageViewHolder> {

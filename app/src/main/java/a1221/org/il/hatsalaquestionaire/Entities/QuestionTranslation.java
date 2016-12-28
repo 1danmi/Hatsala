@@ -1,4 +1,4 @@
-package a1221.org.il.hatsalaquestionaire.Entities;
+package a1221.org.il.hatsalaquestionaire.entities;
 
 /**
  * Created by Arele-PC on 12/27/2016.
