@@ -1,16 +1,11 @@
 package a1221.org.il.hatsalaquestionaire;
 
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
-import android.view.ViewGroup;
-import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
-import android.widget.Button;
 import android.widget.ImageButton;
-import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -19,12 +14,13 @@ import java.util.ArrayList;
 import a1221.org.il.hatsalaquestionaire.Entities.Answer;
 import a1221.org.il.hatsalaquestionaire.Entities.Question;
 import a1221.org.il.hatsalaquestionaire.adapters.AnswersRecyclerAdapter;
-import a1221.org.il.hatsalaquestionaire.adapters.LanguageRecyclerAdapter;
 import a1221.org.il.hatsalaquestionaire.adapters.LanguageRecyclerViewListener;
-import a1221.org.il.hatsalaquestionaire.database.DBManager;
-import a1221.org.il.hatsalaquestionaire.database.DBManagerFactory;
 
-public class QuestionActivity extends AppCompatActivity  implements LanguageRecyclerViewListener.OnRecyclerClickListener  {
+/**
+ * Created by Arele-PC on 12/28/2016.
+ */
+
+public class AdditionalQuestionsActivity extends AppCompatActivity implements LanguageRecyclerViewListener.OnRecyclerClickListener{
 
     private RecyclerView answerRecyclerView;
     private AnswersRecyclerAdapter answerRecyclerAdapter;
@@ -36,7 +32,6 @@ public class QuestionActivity extends AppCompatActivity  implements LanguageRecy
     ImageButton HebSpeech;
     ImageButton TranslatedSpeech;
     Question current;
-    private static int id;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -45,6 +40,8 @@ public class QuestionActivity extends AppCompatActivity  implements LanguageRecy
         QHeb = (TextView)findViewById(R.id.hebrew_question);
         Qtranslated = (TextView)findViewById(R.id.translation_question);
         HebSpeech = (ImageButton)findViewById(R.id.hebrew_audio_btn);
+
+
         HebSpeech.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -63,8 +60,7 @@ public class QuestionActivity extends AppCompatActivity  implements LanguageRecy
         });
         tempAddQuestions();
         tempaddanswers();
-        id = 0;
-        current = getQuestions(id);
+        current = getQuestions();
 
         ArrayList<Answer> currentAns = getAnswers(current);
         QHeb.setText(current.HebrewQ);
@@ -77,28 +73,11 @@ public class QuestionActivity extends AppCompatActivity  implements LanguageRecy
 
         answerRecyclerView.setAdapter(answerRecyclerAdapter);
 
-       // answerRecyclerView.addOnItemTouchListener(new anRecyclerViewListener(this, answerRecyclerView,this));
+        // answerRecyclerView.addOnItemTouchListener(new anRecyclerViewListener(this, answerRecyclerView,this));
     }
 
     @Override
     public void onitemClick(View v, int position) {
-
-    }
-    public void nextquestion(){
-        id = 0;//for now
-        current = getQuestions(id);
-
-        ArrayList<Answer> currentAns = getAnswers(current);
-        QHeb.setText(current.HebrewQ);
-        Qtranslated.setText(current.TranslatedQ);
-        setTitle(current.Title);
-        answerRecyclerView = (RecyclerView) findViewById(R.id.answer_recycler_view);
-        answerRecyclerView.setLayoutManager(new LinearLayoutManager(this));
-
-        answerRecyclerAdapter = new AnswersRecyclerAdapter(getApplicationContext(),currentAns);
-
-        answerRecyclerView.setAdapter(answerRecyclerAdapter);
-
 
     }
     private void tempaddanswers() {
@@ -132,8 +111,8 @@ public class QuestionActivity extends AppCompatActivity  implements LanguageRecy
         return aList;
         //todo get answer for current question from db
     }
-    public Question getQuestions(int counter) {
-        return qList.get(counter);
+    public Question getQuestions() {
+        return qList.get(0);
         //Todo get next question from db
     }
 }

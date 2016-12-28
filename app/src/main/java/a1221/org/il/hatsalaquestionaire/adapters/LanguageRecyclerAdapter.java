@@ -9,8 +9,10 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
+import java.util.ArrayList;
 import java.util.List;
 
+import a1221.org.il.hatsalaquestionaire.Entities.Answer;
 import a1221.org.il.hatsalaquestionaire.R;
 
 public class LanguageRecyclerAdapter extends RecyclerView.Adapter<LanguageRecyclerAdapter.LanguageViewHolder> {
@@ -19,7 +21,7 @@ public class LanguageRecyclerAdapter extends RecyclerView.Adapter<LanguageRecycl
     private Context mContext;
 
 
-    public LanguageRecyclerAdapter(Context mContext, List<String> languages) {
+    public LanguageRecyclerAdapter(Context mContext, ArrayList<String> languages) {
         this.languages = languages;
         this.mContext = mContext;
     }
