@@ -5,37 +5,29 @@ import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
-import android.view.ViewGroup;
-import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
-import android.widget.Button;
 import android.widget.ImageButton;
-import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import java.util.ArrayList;
 
 import a1221.org.il.hatsalaquestionaire.Entities.Answer;
-import a1221.org.il.hatsalaquestionaire.Entities.Question;
+import a1221.org.il.hatsalaquestionaire.Entities.QuestionTranslation;
 import a1221.org.il.hatsalaquestionaire.adapters.AnswersRecyclerAdapter;
-import a1221.org.il.hatsalaquestionaire.adapters.LanguageRecyclerAdapter;
 import a1221.org.il.hatsalaquestionaire.adapters.LanguageRecyclerViewListener;
-import a1221.org.il.hatsalaquestionaire.database.DBManager;
-import a1221.org.il.hatsalaquestionaire.database.DBManagerFactory;
 
 public class QuestionActivity extends AppCompatActivity  implements LanguageRecyclerViewListener.OnRecyclerClickListener  {
 
     private RecyclerView answerRecyclerView;
     private AnswersRecyclerAdapter answerRecyclerAdapter;
-    private static ArrayList<Question> qList = new ArrayList<Question>();
+    private static ArrayList<QuestionTranslation> qList = new ArrayList<QuestionTranslation>();
     private static ArrayList<Answer> aList = new ArrayList<Answer>();
 
     TextView QHeb;
     TextView Qtranslated;
     ImageButton HebSpeech;
     ImageButton TranslatedSpeech;
-    Question current;
+    QuestionTranslation current;
     private static int id;
 
     @Override
@@ -109,9 +101,9 @@ public class QuestionActivity extends AppCompatActivity  implements LanguageRecy
         aList.add(new Answer("1","he","very bad","ממש לא טוב"));
     }
     private void tempAddQuestions() {
-        qList.add(new Question("1","איך מרגיש","he","How do feel today? How do u feel?","מה שלומך היום? איך אתה מרגיש?"));
-        qList.add(new Question("2","מממממ","he","sdffdsfsdf","ממממממממ"));
-        qList.add(new Question("3","טט","he","sdffdsfsdf","טטטט"));
+        qList.add(new QuestionTranslation("1","איך מרגיש","he","How do feel today? How do u feel?","מה שלומך היום? איך אתה מרגיש?"));
+        qList.add(new QuestionTranslation("2","מממממ","he","sdffdsfsdf","ממממממממ"));
+        qList.add(new QuestionTranslation("3","טט","he","sdffdsfsdf","טטטט"));
     }
     @Override
     protected void onResume() {
@@ -128,11 +120,11 @@ public class QuestionActivity extends AppCompatActivity  implements LanguageRecy
         }
 
     }
-    private ArrayList<Answer> getAnswers(Question current) {
+    private ArrayList<Answer> getAnswers(QuestionTranslation current) {
         return aList;
         //todo get answer for current question from db
     }
-    public Question getQuestions(int counter) {
+    public QuestionTranslation getQuestions(int counter) {
         return qList.get(counter);
         //Todo get next question from db
     }

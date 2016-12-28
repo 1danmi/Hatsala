@@ -12,7 +12,7 @@ import android.widget.Toast;
 import java.util.ArrayList;
 
 import a1221.org.il.hatsalaquestionaire.Entities.Answer;
-import a1221.org.il.hatsalaquestionaire.Entities.Question;
+import a1221.org.il.hatsalaquestionaire.Entities.QuestionTranslation;
 import a1221.org.il.hatsalaquestionaire.adapters.AnswersRecyclerAdapter;
 import a1221.org.il.hatsalaquestionaire.adapters.LanguageRecyclerViewListener;
 
@@ -24,14 +24,14 @@ public class AdditionalQuestionsActivity extends AppCompatActivity implements La
 
     private RecyclerView answerRecyclerView;
     private AnswersRecyclerAdapter answerRecyclerAdapter;
-    private static ArrayList<Question> qList = new ArrayList<Question>();
+    private static ArrayList<QuestionTranslation> qList = new ArrayList<QuestionTranslation>();
     private static ArrayList<Answer> aList = new ArrayList<Answer>();
 
     TextView QHeb;
     TextView Qtranslated;
     ImageButton HebSpeech;
     ImageButton TranslatedSpeech;
-    Question current;
+    QuestionTranslation current;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -88,9 +88,9 @@ public class AdditionalQuestionsActivity extends AppCompatActivity implements La
         aList.add(new Answer("1","he","very bad","ממש לא טוב"));
     }
     private void tempAddQuestions() {
-        qList.add(new Question("1","איך מרגיש","he","How do feel today? How do u feel?","מה שלומך היום? איך אתה מרגיש?"));
-        qList.add(new Question("2","מממממ","he","sdffdsfsdf","ממממממממ"));
-        qList.add(new Question("3","טט","he","sdffdsfsdf","טטטט"));
+        qList.add(new QuestionTranslation("1","איך מרגיש","he","How do feel today? How do u feel?","מה שלומך היום? איך אתה מרגיש?"));
+        qList.add(new QuestionTranslation("2","מממממ","he","sdffdsfsdf","ממממממממ"));
+        qList.add(new QuestionTranslation("3","טט","he","sdffdsfsdf","טטטט"));
     }
     @Override
     protected void onResume() {
@@ -107,11 +107,11 @@ public class AdditionalQuestionsActivity extends AppCompatActivity implements La
         }
 
     }
-    private ArrayList<Answer> getAnswers(Question current) {
+    private ArrayList<Answer> getAnswers(QuestionTranslation current) {
         return aList;
         //todo get answer for current question from db
     }
-    public Question getQuestions() {
+    public QuestionTranslation getQuestions() {
         return qList.get(0);
         //Todo get next question from db
     }
