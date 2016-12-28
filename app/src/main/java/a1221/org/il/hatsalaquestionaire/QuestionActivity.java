@@ -14,20 +14,20 @@ import a1221.org.il.hatsalaquestionaire.database.DBManagerFactory;
 public class QuestionActivity extends AppCompatActivity  implements LanguageRecyclerViewListener.OnRecyclerClickListener  {
 
     private RecyclerView languageRecyclerView;
-    private LanguageRecyclerAdapter languageRecyclerAdapter;
+    private LanguageRecyclerAdapter answerRecyclerAdapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_question);
-
-        languageRecyclerView = (RecyclerView) findViewById(R.id.language_recycler_view);
+        //getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        languageRecyclerView = (RecyclerView) findViewById(R.id.answer_recycler_view);
         languageRecyclerView.setLayoutManager(new LinearLayoutManager(this));
         DBManager dbmanager = (DBManager) DBManagerFactory.getManager();
         dbmanager.getLanguages();
-        languageRecyclerAdapter = new LanguageRecyclerAdapter(getApplicationContext(), dbmanager.languages);
+        answerRecyclerAdapter = new LanguageRecyclerAdapter(getApplicationContext());
 
-        languageRecyclerView.setAdapter(languageRecyclerAdapter);
+        languageRecyclerView.setAdapter(answerRecyclerAdapter);
 
         languageRecyclerView.addOnItemTouchListener(new LanguageRecyclerViewListener(this, languageRecyclerView,this));
     }

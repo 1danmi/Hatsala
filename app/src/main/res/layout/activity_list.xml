@@ -5,7 +5,7 @@
     android:id="@+id/activity_language"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="a1221.org.il.hatsalaquestionaire.LanguageActivity"
+    tools:context="a1221.org.il.hatsalaquestionaire.ListActivity"
     android:orientation="vertical">
 
 

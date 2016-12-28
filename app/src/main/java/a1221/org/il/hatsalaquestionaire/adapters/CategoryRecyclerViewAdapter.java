@@ -10,15 +10,21 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
+import java.util.Comparator;
 import java.util.List;
 
 import a1221.org.il.hatsalaquestionaire.R;
-import a1221.org.il.hatsalaquestionaire.entities.Language;
+import a1221.org.il.hatsalaquestionaire.entities.Category;
 
-public class LanguageRecyclerAdapter extends RecyclerView.Adapter<LanguageRecyclerAdapter.ListViewHolder> {
-    private static final String TAG = "LanguageRecyclerAdapter";
+/**
+ * Created by Daniel on 12/28/2016.
+ */
+
+public class CategoryRecyclerViewAdapter extends RecyclerView.Adapter<CategoryRecyclerViewAdapter.ListViewHolder> {
+    private static final String TAG = "CategoryRecyclerViewAda";
+    private final Comparator<Category> mComparator;
     private Context mContext;
-    SortedList<Language> languages = new SortedList<>(Language.class, new SortedList.Callback<Language>() {
+    SortedList<Category> categories = new SortedList<>(Category.class, new SortedList.Callback<Category>() {
 
         @Override
         public void onInserted(int position, int count) {
@@ -41,26 +47,23 @@ public class LanguageRecyclerAdapter extends RecyclerView.Adapter<LanguageRecycl
         }
 
         @Override
-        public int compare(Language a, Language b) {
-            return Integer.compare(a.getSortID(),b.getSortID());
+        public int compare(Category a, Category b) {
+            return mComparator.compare(a,b);
         }
 
         @Override
-        public boolean areContentsTheSame(Language oldItem, Language newItem) {
-            return oldItem.getLanguage().equals(newItem.getLanguage());
+        public boolean areContentsTheSame(Category oldItem, Category newItem) {
+            return oldItem.getName().equals(newItem.getName());
         }
 
         @Override
-        public boolean areItemsTheSame(Language item1, Language item2) {
+        public boolean areItemsTheSame(Category item1, Category item2) {
             return item1.get_ID() == item2.get_ID();
         }
     });
 
-
-
-
-
-    public LanguageRecyclerAdapter(Context mContext) {
+    public CategoryRecyclerViewAdapter(Context mContext, Comparator<Category> mComparator) {
+        this.mComparator = mComparator;
         //this.categories = categories;
         this.mContext = mContext;
     }
@@ -68,7 +71,7 @@ public class LanguageRecyclerAdapter extends RecyclerView.Adapter<LanguageRecycl
     @Override
     public int getItemCount() {
         Log.d(TAG, "getItemCount: called");
-        return ((languages != null) && (languages.size() != 0) ? languages.size() : 0);
+        return ((categories != null) && (categories.size() != 0) ? categories.size() : 0);
 
     }
 
@@ -77,19 +80,19 @@ public class LanguageRecyclerAdapter extends RecyclerView.Adapter<LanguageRecycl
         // Called by the layout manager when it wants new data in an existing row
 
 
-        Log.d(TAG, "onBindViewHolder: " + languages.get(position).getLanguage() + " --> " + position);
-        holder.title.setText(languages.get(position).getLanguage());
+        Log.d(TAG, "onBindViewHolder: " + categories.get(position).getName() + " --> " + position);
+        holder.title.setText(categories.get(position).getName());
 
 
     }
 
-    public void addItem(Language language) {
-        languages.add(language);
-        notifyItemInserted(languages.size());
+    public void addItem(Category category) {
+        categories.add(category);
+        notifyItemInserted(categories.size());
     }
 
     public void removeItem(int position) {
-        languages.remove(languages.get(position));
+        categories.remove(categories.get(position));
         notifyItemRemoved(position);
     }
 
@@ -105,14 +108,9 @@ public class LanguageRecyclerAdapter extends RecyclerView.Adapter<LanguageRecycl
     }
 
 
-    public void loadNewData(SortedList<Language> newLanguages) {
-        this.languages = newLanguages;
-        notifyDataSetChanged();
-    }
 
-
-    public Language getLanguage(int position) {
-        return ((languages != null) && (languages.size() != 0) ? languages.get(position) : null);
+    public Category getLanguage(int position) {
+        return ((categories != null) && (categories.size() != 0) ? categories.get(position) : null);
     }
 
 
@@ -129,39 +127,40 @@ public class LanguageRecyclerAdapter extends RecyclerView.Adapter<LanguageRecycl
         }
     }
 
-    public void add(Language model) {
-        languages.add(model);
+    public void add(Category model) {
+        categories.add(model);
     }
 
-    public void remove(Language model) {
-        languages.remove(model);
+    public void remove(Category model) {
+        categories.remove(model);
     }
 
-    public void add(List<Language> models) {
-        languages.addAll(models);
+    public void add(List<Category> models) {
+        categories.addAll(models);
     }
 
-    public void remove(List<Language> models) {
-        languages.beginBatchedUpdates();
-        for (Language  model : models) {
-            languages.remove(model);
+    public void remove(List<Category> models) {
+        categories.beginBatchedUpdates();
+        for (Category  model : models) {
+            categories.remove(model);
         }
-        languages.endBatchedUpdates();
+        categories.endBatchedUpdates();
     }
 
-    public void addList(List<Language> models) {
-        languages.addAll(models);
+    public void addList(List<Category> models) {
+        categories.addAll(models);
     }
 
-    public void replaceAll(List<Language> models) {
-        languages.beginBatchedUpdates();
-        for (int i = languages.size() - 1; i >= 0; i--) {
-            final Language model = languages.get(i);
+    public void replaceAll(List<Category> models) {
+        categories.beginBatchedUpdates();
+        for (int i = categories.size() - 1; i >= 0; i--) {
+            final Category model = categories.get(i);
             if (!models.contains(model)) {
-                languages.remove(model);
+                categories.remove(model);
             }
         }
-        languages.addAll(models);
-        languages.endBatchedUpdates();
+        categories.addAll(models);
+        categories.endBatchedUpdates();
     }
 }
+

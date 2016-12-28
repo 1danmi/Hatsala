@@ -7,4 +7,6 @@ package a1221.org.il.hatsalaquestionaire.database;
 public interface IDBManager {
 
     void getLanguages();
+
+    void addLanguage();
 }
