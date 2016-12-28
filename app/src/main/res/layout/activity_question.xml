@@ -111,6 +111,13 @@
     <android.support.v7.widget.RecyclerView
         android:layout_width="match_parent"
         android:id="@+id/answer_recycler_view"
-        android:layout_height="match_parent"
+        android:layout_height="193dp"
         android:layout_marginTop="8dp" />
+
+    <ImageButton
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:srcCompat="@drawable/ic_skip_next_black_48dp"
+        android:id="@+id/imageButton_Next" />
+
 </LinearLayout>
