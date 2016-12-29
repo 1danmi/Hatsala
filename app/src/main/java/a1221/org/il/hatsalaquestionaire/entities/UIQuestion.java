@@ -10,6 +10,8 @@ public class UIQuestion {
 
     private int _ID;
 
+    private String title;
+
     private String qHebrew;
 
     private String qTranslation;
@@ -21,8 +23,9 @@ public class UIQuestion {
     public UIQuestion() {
     }
 
-    public UIQuestion(int _ID, String qHebrew, String qTranslation, boolean isScale, List<UIAnswer> uiAnswers) {
+    public UIQuestion(int _ID,String title, String qHebrew, String qTranslation, boolean isScale, List<UIAnswer> uiAnswers) {
         this._ID = _ID;
+        this.title = title;
         this.qHebrew = qHebrew;
         this.qTranslation = qTranslation;
         this.isScale = isScale;
@@ -35,6 +38,14 @@ public class UIQuestion {
 
     public void set_ID(int _ID) {
         this._ID = _ID;
+    }
+
+    public String getTitle() {
+        return title;
+    }
+
+    public void setTitle(String title) {
+        this.title = title;
     }
 
     public String getqHebrew() {
