@@ -13,7 +13,7 @@ import android.widget.TextView;
 
 import java.util.List;
 
-import a1221.org.il.hatsalaquestionaire.entities.UIAnswer;
+import a1221.org.il.hatsalaquestionaire.entities.UI_Answer;
 import a1221.org.il.hatsalaquestionaire.R;
 
 /**
@@ -22,12 +22,12 @@ import a1221.org.il.hatsalaquestionaire.R;
 
 public class AnswersRecyclerAdapter extends  RecyclerView.Adapter<AnswersRecyclerAdapter.AnswerViewHolder> {
 
-    private List<UIAnswer> UIAnswers;
+    private List<UI_Answer> UI_Answers;
     private Context mContext;
     private static final String TAG = "AnswerRecyclerAdapter";
     TextToSpeech ttobj;
-    public AnswersRecyclerAdapter(Context mcontext, List<UIAnswer> hebans){
-        UIAnswers = hebans;
+    public AnswersRecyclerAdapter(Context mcontext, List<UI_Answer> hebans){
+        UI_Answers = hebans;
         mContext= mcontext;
     }
 
@@ -41,15 +41,15 @@ public class AnswersRecyclerAdapter extends  RecyclerView.Adapter<AnswersRecycle
     @Override
     public void onBindViewHolder(AnswersRecyclerAdapter.AnswerViewHolder holder, int position) {
 
-        holder.hebtext.setText(UIAnswers.get(position).hebrewanswer);
-        holder.transtext.setText(UIAnswers.get(position).translatedanswer);
+        holder.hebtext.setText(UI_Answers.get(position).hebrewanswer);
+        holder.transtext.setText(UI_Answers.get(position).translatedanswer);
 
     }
 
     @Override
     public int getItemCount() {
         Log.d(TAG, "getItemCount: called");
-        return ((UIAnswers != null) && (UIAnswers.size() != 0) ? UIAnswers.size() : 0);
+        return ((UI_Answers != null) && (UI_Answers.size() != 0) ? UI_Answers.size() : 0);
     }
     static class AnswerViewHolder extends RecyclerView.ViewHolder {
         private static final String TAG = "AnswerViewHolder";

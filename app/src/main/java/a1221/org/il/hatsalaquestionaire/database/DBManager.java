@@ -52,11 +52,6 @@ public class DBManager implements IDBManager {
         mDbHelper.close();
     }
 
-
-
-
-
-
     @Override
     public void getLanguages() {
         Cursor query = sqLiteDatabase.rawQuery("SELECT * FROM language;",null);

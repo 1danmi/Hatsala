@@ -11,7 +11,7 @@ import android.widget.Toast;
 
 import java.util.ArrayList;
 
-import a1221.org.il.hatsalaquestionaire.entities.UIAnswer;
+import a1221.org.il.hatsalaquestionaire.entities.UI_Answer;
 import a1221.org.il.hatsalaquestionaire.entities.QuestionTranslation;
 import a1221.org.il.hatsalaquestionaire.adapters.AnswersRecyclerAdapter;
 import a1221.org.il.hatsalaquestionaire.adapters.RecyclerViewListener;
@@ -21,7 +21,7 @@ public class QuestionActivity extends AppCompatActivity  implements RecyclerView
     private RecyclerView answerRecyclerView;
     private AnswersRecyclerAdapter answerRecyclerAdapter;
     private static ArrayList<QuestionTranslation> qList = new ArrayList<QuestionTranslation>();
-    private static ArrayList<UIAnswer> aList = new ArrayList<UIAnswer>();
+    private static ArrayList<UI_Answer> aList = new ArrayList<UI_Answer>();
 
     TextView QHeb;
     TextView Qtranslated;
@@ -58,7 +58,7 @@ public class QuestionActivity extends AppCompatActivity  implements RecyclerView
         id = 0;
         current = getQuestions(id);
 
-        ArrayList<UIAnswer> currentAns = getAnswers(current);
+        ArrayList<UI_Answer> currentAns = getAnswers(current);
         QHeb.setText(current.HebrewQ);
         Qtranslated.setText(current.TranslatedQ);
         setTitle(current.Title);
@@ -80,7 +80,7 @@ public class QuestionActivity extends AppCompatActivity  implements RecyclerView
         id = 0;//for now
         current = getQuestions(id);
 
-        ArrayList<UIAnswer> currentAns = getAnswers(current);
+        ArrayList<UI_Answer> currentAns = getAnswers(current);
         QHeb.setText(current.HebrewQ);
         Qtranslated.setText(current.TranslatedQ);
         setTitle(current.Title);
@@ -94,11 +94,11 @@ public class QuestionActivity extends AppCompatActivity  implements RecyclerView
 
     }
     private void tempaddanswers() {
-        aList.add(new UIAnswer("1","he","Ok","בסדר"));
-        aList.add(new UIAnswer("1","he","very bad","ממש לא טוב"));
-        aList.add(new UIAnswer("1","he","very bad","ממש לא טוב"));
-        aList.add(new UIAnswer("1","he","very bad","ממש לא טוב"));
-        aList.add(new UIAnswer("1","he","very bad","ממש לא טוב"));
+        aList.add(new UI_Answer("1","he","Ok","בסדר"));
+        aList.add(new UI_Answer("1","he","very bad","ממש לא טוב"));
+        aList.add(new UI_Answer("1","he","very bad","ממש לא טוב"));
+        aList.add(new UI_Answer("1","he","very bad","ממש לא טוב"));
+        aList.add(new UI_Answer("1","he","very bad","ממש לא טוב"));
     }
     private void tempAddQuestions() {
         qList.add(new QuestionTranslation("1","איך מרגיש","he","How do feel today? How do u feel?","מה שלומך היום? איך אתה מרגיש?"));
@@ -120,7 +120,7 @@ public class QuestionActivity extends AppCompatActivity  implements RecyclerView
         }
 
     }
-    private ArrayList<UIAnswer> getAnswers(QuestionTranslation current) {
+    private ArrayList<UI_Answer> getAnswers(QuestionTranslation current) {
         return aList;
         //todo get answer for current question from db
     }

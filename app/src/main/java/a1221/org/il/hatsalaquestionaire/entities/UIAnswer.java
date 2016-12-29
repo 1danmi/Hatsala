@@ -1,25 +1,33 @@
 package a1221.org.il.hatsalaquestionaire.entities;
 
 /**
- * Created by Arele-PC on 12/27/2016.
+ * Created by Daniel on 12/29/2016.
  */
+
 public class UIAnswer {
 
-   public String hebrewanswer;
-   public String translatedanswer;
-   public String Languageformat;
-   public String questionid;
+    private String aHebrew;
 
+    private String aTranslation;
 
-   public UIAnswer(String id, String format, String ans1, String transans1) {
-      questionid = id;
-      hebrewanswer = ans1;
-      translatedanswer = transans1;
-      Languageformat = format;
+    public UIAnswer(String aHebrew, String aTranslation) {
+        this.aHebrew = aHebrew;
+        this.aTranslation = aTranslation;
+    }
 
+    public String getaHebrew() {
+        return aHebrew;
+    }
 
+    public void setaHebrew(String aHebrew) {
+        this.aHebrew = aHebrew;
+    }
 
+    public String getaTranslation() {
+        return aTranslation;
+    }
 
-   }
-
+    public void setaTranslation(String aTranslation) {
+        this.aTranslation = aTranslation;
+    }
 }
