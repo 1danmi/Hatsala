@@ -14,9 +14,12 @@ public class Answer implements Serializable {
 
     private boolean isScale;
 
-    public Answer(int _ID, boolean isScale) {
+    private int q_ID;
+
+    public Answer(int _ID, boolean isScale, int q_ID) {
         this._ID = _ID;
         this.isScale = isScale;
+        this.q_ID = q_ID;
     }
 
     public int get_ID() {
@@ -33,5 +36,13 @@ public class Answer implements Serializable {
 
     public void setScale(boolean scale) {
         isScale = scale;
+    }
+
+    public int getQ_ID() {
+        return q_ID;
+    }
+
+    public void setQ_ID(int q_ID) {
+        this.q_ID = q_ID;
     }
 }

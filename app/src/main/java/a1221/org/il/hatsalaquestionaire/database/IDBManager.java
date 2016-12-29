@@ -6,10 +6,23 @@ package a1221.org.il.hatsalaquestionaire.database;
 
 public interface IDBManager {
 
+
+    void getQuestions();
+
+    void getAnswers();
+
+    void getTags();
+
+    void getQTranslations();
+
+    void getATranslations();
+
     void getLanguages();
 
     void getCategories();
 
-    void getQuestion();
+    void getCatq();
+
+
 
 }

@@ -6,19 +6,19 @@ import java.io.Serializable;
  * Created by Daniel on 12/28/2016.
  */
 
-public class Tag implements Serializable {
+public class CatQ implements Serializable{
 
-    private static final long serialVersionUID = 5L;
+    private static final long serialVersionUID = 10L;
 
     private int _ID;
 
+    private int c_ID;
+
     private int q_ID;
 
-    private String text;
-
-    public Tag(int _ID, String text, int q_ID) {
+    public CatQ(int _ID, int c_ID, int q_ID) {
         this._ID = _ID;
-        this.text = text;
+        this.c_ID = c_ID;
         this.q_ID = q_ID;
     }
 
@@ -30,12 +30,12 @@ public class Tag implements Serializable {
         this._ID = _ID;
     }
 
-    public String getText() {
-        return text;
+    public int getC_ID() {
+        return c_ID;
     }
 
-    public void setText(String text) {
-        this.text = text;
+    public void setC_ID(int c_ID) {
+        this.c_ID = c_ID;
     }
 
     public int getQ_ID() {

@@ -6,20 +6,31 @@ import java.io.Serializable;
  * Created by Daniel on 12/28/2016.
  */
 
-public class Tag implements Serializable {
+public class QTranslation implements Serializable {
 
-    private static final long serialVersionUID = 5L;
+    private static final long serialVersionUID = 4L;
 
     private int _ID;
 
-    private int q_ID;
-
     private String text;
 
-    public Tag(int _ID, String text, int q_ID) {
+    private int l_ID;
+
+    private int q_ID;
+
+    public QTranslation(int _ID, String text, int l_ID, int q_ID) {
         this._ID = _ID;
         this.text = text;
+        this.l_ID = l_ID;
         this.q_ID = q_ID;
+    }
+
+    public String getText() {
+        return text;
+    }
+
+    public void setText(String text) {
+        this.text = text;
     }
 
     public int get_ID() {
@@ -30,12 +41,12 @@ public class Tag implements Serializable {
         this._ID = _ID;
     }
 
-    public String getText() {
-        return text;
+    public int getL_ID() {
+        return l_ID;
     }
 
-    public void setText(String text) {
-        this.text = text;
+    public void setL_ID(int l_ID) {
+        this.l_ID = l_ID;
     }
 
     public int getQ_ID() {

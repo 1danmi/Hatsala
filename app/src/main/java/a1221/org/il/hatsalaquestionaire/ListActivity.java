@@ -16,8 +16,8 @@ import java.util.List;
 
 import a1221.org.il.hatsalaquestionaire.adapters.CategoryRecyclerViewAdapter;
 import a1221.org.il.hatsalaquestionaire.adapters.LanguageRecyclerAdapter;
-import a1221.org.il.hatsalaquestionaire.adapters.RecyclerViewListener;
 import a1221.org.il.hatsalaquestionaire.adapters.QuestionRecyclerViewAdapter;
+import a1221.org.il.hatsalaquestionaire.adapters.RecyclerViewListener;
 import a1221.org.il.hatsalaquestionaire.database.DBManager;
 import a1221.org.il.hatsalaquestionaire.database.DBManagerFactory;
 import a1221.org.il.hatsalaquestionaire.entities.Category;
@@ -32,6 +32,7 @@ public class ListActivity extends AppCompatActivity implements RecyclerViewListe
     private LanguageRecyclerAdapter languageRecyclerAdapter;
     private CategoryRecyclerViewAdapter categoryRecyclerViewAdapter;
     private QuestionRecyclerViewAdapter questionRecyclerViewAdapter;
+
     private static List<Language> filterLanguage(List<Language> languages, String query) {
         final List<Language> filteredModelList = new ArrayList<>();
         for (Language l : languages) {
@@ -42,6 +43,7 @@ public class ListActivity extends AppCompatActivity implements RecyclerViewListe
         }
         return filteredModelList;
     }
+
     private static List<Category> filterCategory(List<Category> categories, String query) {
         final List<Category> filteredModelList = new ArrayList<>();
         for (Category c : categories) {
@@ -51,7 +53,9 @@ public class ListActivity extends AppCompatActivity implements RecyclerViewListe
             }
         }
         return filteredModelList;
-    }private static List<Question> filterQuestion(List<Question> languages, String query) {
+    }
+
+    private static List<Question> filterQuestion(List<Question> languages, String query) {
         final List<Question> filteredModelList = new ArrayList<>();
         for (Question q : languages) {
             final String text = q.getTitle().toLowerCase();
@@ -61,6 +65,7 @@ public class ListActivity extends AppCompatActivity implements RecyclerViewListe
         }
         return filteredModelList;
     }
+
     private static final Comparator<Category> CATEGORY_COMPARATOR = new Comparator<Category>() {
         @Override
         public int compare(Category a, Category b) {
@@ -76,35 +81,37 @@ public class ListActivity extends AppCompatActivity implements RecyclerViewListe
     };
 
     @Override
-    protected void onCreate(Bundle savedInstanceState){
+    protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_list);
 
 
         listRecyclerView = (RecyclerView) findViewById(R.id.language_recycler_view);
         listRecyclerView.setLayoutManager(new LinearLayoutManager(this));
-        dbmanager = (DBManager) DBManagerFactory.getManager();
+        dbmanager = (DBManager) DBManagerFactory.getManager(getApplicationContext());
+
 
         MODE = "Questions";
 
-        if(MODE.equals("Languages")){
+
+
+        if (MODE.equals("Languages")) {
             setTitle("בחר שפה");
             setLangugeAdapter();
-        }else if(MODE.equals("Categories")){
+        } else if (MODE.equals("Categories")) {
             setTitle("בחר קטגוריה");
             setCategoryAdapters();
-        }else if(MODE.equals("Questions")){
+        } else if (MODE.equals("Questions")) {
             setTitle("בחר שאלה");
             setQuestionAdapter();
         }
-
-
+        dbmanager.closeDB();
 
 
     }
 
     private void setQuestionAdapter() {
-        dbmanager.getQuestion();
+        dbmanager.getQuestions();
 
         questionRecyclerViewAdapter = new QuestionRecyclerViewAdapter(getApplicationContext(), QUESTION_COMPARATOR);
 
@@ -112,7 +119,7 @@ public class ListActivity extends AppCompatActivity implements RecyclerViewListe
 
         listRecyclerView.setAdapter(questionRecyclerViewAdapter);
 
-        listRecyclerView.addOnItemTouchListener(new RecyclerViewListener(this, listRecyclerView,this));
+        listRecyclerView.addOnItemTouchListener(new RecyclerViewListener(this, listRecyclerView, this));
     }
 
     private void setCategoryAdapters() {
@@ -124,7 +131,7 @@ public class ListActivity extends AppCompatActivity implements RecyclerViewListe
 
         listRecyclerView.setAdapter(categoryRecyclerViewAdapter);
 
-        listRecyclerView.addOnItemTouchListener(new RecyclerViewListener(this, listRecyclerView,this));
+        listRecyclerView.addOnItemTouchListener(new RecyclerViewListener(this, listRecyclerView, this));
     }
 
     private void setLangugeAdapter() {
@@ -136,7 +143,7 @@ public class ListActivity extends AppCompatActivity implements RecyclerViewListe
 
         listRecyclerView.setAdapter(languageRecyclerAdapter);
 
-        listRecyclerView.addOnItemTouchListener(new RecyclerViewListener(this, listRecyclerView,this));
+        listRecyclerView.addOnItemTouchListener(new RecyclerViewListener(this, listRecyclerView, this));
     }
 
     @Override
@@ -159,13 +166,13 @@ public class ListActivity extends AppCompatActivity implements RecyclerViewListe
     public boolean onQueryTextChange(String query) {
         // Here is where we are going to implement the filterLanguage logic
 
-        if(MODE.equals("Languages")) {
+        if (MODE.equals("Languages")) {
             final List<Language> filteredModelList = filterLanguage(dbmanager.languages, query);
             languageRecyclerAdapter.replaceAll(filteredModelList);
-        }else if(MODE.equals("Categories")){
+        } else if (MODE.equals("Categories")) {
             final List<Category> filteredModelList = filterCategory(dbmanager.categories, query);
             categoryRecyclerViewAdapter.replaceAll(filteredModelList);
-        }else if(MODE.equals("Questions")){
+        } else if (MODE.equals("Questions")) {
             final List<Question> filteredModelList = filterQuestion(dbmanager.questions, query);
             questionRecyclerViewAdapter.replaceAll(filteredModelList);
         }
@@ -178,6 +185,7 @@ public class ListActivity extends AppCompatActivity implements RecyclerViewListe
     public boolean onQueryTextSubmit(String query) {
         return false;
     }
+
 
 
 }
