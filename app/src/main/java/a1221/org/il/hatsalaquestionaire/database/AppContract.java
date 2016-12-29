@@ -27,12 +27,13 @@ public class AppContract {
     public static class QTranslation {
         public static final String _ID = "_id";
         public static final String Q_ID = "q_id";
-        public static final String LANGUAGE = "langua                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                            ge";
+        public static final String LANGUAGE = "language";
         public static final String TEXT = "text";
     }
 
     public static class ATranslation {
         public static final String _ID = "_id";
+
         public static final String A_ID = "a_id";
         public static final String LANGUAGE = "language";
         public static final String TEXT = "text";

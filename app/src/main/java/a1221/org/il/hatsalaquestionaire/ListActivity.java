@@ -1,5 +1,6 @@
 package a1221.org.il.hatsalaquestionaire;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.view.MenuItemCompat;
 import android.support.v7.app.AppCompatActivity;
@@ -18,14 +19,18 @@ import a1221.org.il.hatsalaquestionaire.adapters.CategoryRecyclerViewAdapter;
 import a1221.org.il.hatsalaquestionaire.adapters.LanguageRecyclerAdapter;
 import a1221.org.il.hatsalaquestionaire.adapters.QuestionRecyclerViewAdapter;
 import a1221.org.il.hatsalaquestionaire.adapters.RecyclerViewListener;
+import a1221.org.il.hatsalaquestionaire.constants.Constants;
 import a1221.org.il.hatsalaquestionaire.database.DBManager;
 import a1221.org.il.hatsalaquestionaire.database.DBManagerFactory;
+import a1221.org.il.hatsalaquestionaire.database.Queries;
+import a1221.org.il.hatsalaquestionaire.database.QueryFactory;
 import a1221.org.il.hatsalaquestionaire.entities.Category;
 import a1221.org.il.hatsalaquestionaire.entities.Language;
 import a1221.org.il.hatsalaquestionaire.entities.Question;
 
 public class ListActivity extends AppCompatActivity implements RecyclerViewListener.OnRecyclerClickListener, android.widget.SearchView.OnQueryTextListener {
 
+    private Queries queri;
     private String MODE;
     private DBManager dbmanager;
     private RecyclerView listRecyclerView;
@@ -33,6 +38,7 @@ public class ListActivity extends AppCompatActivity implements RecyclerViewListe
     private CategoryRecyclerViewAdapter categoryRecyclerViewAdapter;
     private QuestionRecyclerViewAdapter questionRecyclerViewAdapter;
 
+    private List<Category> mainCategories;
     private static List<Language> filterLanguage(List<Language> languages, String query) {
         final List<Language> filteredModelList = new ArrayList<>();
         for (Language l : languages) {
@@ -91,7 +97,7 @@ public class ListActivity extends AppCompatActivity implements RecyclerViewListe
         dbmanager = (DBManager) DBManagerFactory.getManager(getApplicationContext());
 
 
-        MODE = "Questions";
+        MODE = getIntent().getStringExtra(Constants.MODE);
 
 
 
@@ -104,18 +110,44 @@ public class ListActivity extends AppCompatActivity implements RecyclerViewListe
         } else if (MODE.equals("Questions")) {
             setTitle("בחר שאלה");
             setQuestionAdapter();
+        }else if (MODE.equals("Main_Categories")){
+            setMainCategoriesAdapter();
         }
-        dbmanager.closeDB();
+
 
 
     }
 
+    private void setMainCategoriesAdapter() {
+        setTitle("בחר קטגוריה");
+
+        int lang_id = getIntent().getIntExtra(Constants.LANGUAGE_ID,1);
+
+        queri = QueryFactory.getQuery(getApplicationContext(),lang_id);
+
+        mainCategories = queri.getMainCategories();
+
+        categoryRecyclerViewAdapter = new CategoryRecyclerViewAdapter(getApplicationContext(), CATEGORY_COMPARATOR);
+
+        categoryRecyclerViewAdapter.replaceAll(mainCategories);
+
+        listRecyclerView.setAdapter(categoryRecyclerViewAdapter);
+
+        listRecyclerView.addOnItemTouchListener(new RecyclerViewListener(this, listRecyclerView, this));
+    }
+
     private void setQuestionAdapter() {
-        dbmanager.getQuestions();
+        int lang_id = getIntent().getIntExtra(Constants.LANGUAGE_ID,1);
+
+        queri = QueryFactory.getQuery(getApplicationContext(),lang_id);
+
+        int catid = getIntent().getIntExtra(Constants.CATEGORY_ID,1);
+
+        List<Question> questionList= queri.getCategoryQuestions(catid);
 
         questionRecyclerViewAdapter = new QuestionRecyclerViewAdapter(getApplicationContext(), QUESTION_COMPARATOR);
 
-        questionRecyclerViewAdapter.replaceAll(dbmanager.questions);
+        questionRecyclerViewAdapter.replaceAll(questionList);
 
         listRecyclerView.setAdapter(questionRecyclerViewAdapter);
 
@@ -123,11 +155,15 @@ public class ListActivity extends AppCompatActivity implements RecyclerViewListe
     }
 
     private void setCategoryAdapters() {
-        dbmanager.getCategories();
+
+        int lang_id = getIntent().getIntExtra(Constants.LANGUAGE_ID,1);
+        queri = QueryFactory.getQuery(getApplicationContext(),lang_id);
+        int catid = getIntent().getIntExtra(Constants.CATEGORY_ID,1);
+        List<Category> categoryList = queri.getSubCategories(catid);
 
         categoryRecyclerViewAdapter = new CategoryRecyclerViewAdapter(getApplicationContext(), CATEGORY_COMPARATOR);
 
-        categoryRecyclerViewAdapter.replaceAll(dbmanager.categories);
+        categoryRecyclerViewAdapter.replaceAll(categoryList);
 
         listRecyclerView.setAdapter(categoryRecyclerViewAdapter);
 
@@ -148,6 +184,33 @@ public class ListActivity extends AppCompatActivity implements RecyclerViewListe
 
     @Override
     public void onitemClick(View v, int position) {
+        if(getIntent().getStringExtra(Constants.MODE).equals("Languages")){
+            Language lan = dbmanager.languages.get(position);
+            Intent intent = new Intent(getBaseContext(), ListActivity.class);
+            intent.putExtra(Constants.LANGUAGE_ID, lan.get_ID());
+            intent.putExtra(Constants.MODE, "Main_Categories");
+            startActivity(intent);
+        }
+        if(getIntent().getStringExtra(Constants.MODE).equals("Main_Categories")){
+            Category lan = mainCategories.get(position);
+            int lanid = getIntent().getIntExtra(Constants.LANGUAGE_ID,1);
+            Intent intent = new Intent(getBaseContext(), ListActivity.class);
+            intent.putExtra(Constants.LANGUAGE_ID, lanid);
+            intent.putExtra(Constants.CATEGORY_ID, lan.get_ID());
+            intent.putExtra(Constants.MODE,"Categories");
+
+            startActivity(intent);
+        }
+        if(getIntent().getStringExtra(Constants.MODE).equals("Categories")){
+            int catid = getIntent().getIntExtra(Constants.CATEGORY_ID,1);
+            int lanid = getIntent().getIntExtra(Constants.LANGUAGE_ID,1);
+            Category lan = queri.getSubCategories(catid).get(position);
+            Intent intent = new Intent(getBaseContext(), ListActivity.class);
+            intent.putExtra(Constants.LANGUAGE_ID, lanid);
+            intent.putExtra(Constants.CATEGORY_ID, lan.get_ID());
+            intent.putExtra(Constants.MODE,"Questions");
+            startActivity(intent);
+        }
 
     }
 

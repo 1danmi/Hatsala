@@ -12,8 +12,9 @@ import android.widget.ImageButton;
 import android.widget.TextView;
 
 import java.util.List;
+import java.util.Locale;
 
-import a1221.org.il.hatsalaquestionaire.entities.UI_Answer;
+import a1221.org.il.hatsalaquestionaire.entities.UIAnswer;
 import a1221.org.il.hatsalaquestionaire.R;
 
 /**
@@ -22,13 +23,14 @@ import a1221.org.il.hatsalaquestionaire.R;
 
 public class AnswersRecyclerAdapter extends  RecyclerView.Adapter<AnswersRecyclerAdapter.AnswerViewHolder> {
 
-    private List<UI_Answer> UI_Answers;
+    private List<UIAnswer> UIAnswers= null;
     private Context mContext;
     private static final String TAG = "AnswerRecyclerAdapter";
     TextToSpeech ttobj;
-    public AnswersRecyclerAdapter(Context mcontext, List<UI_Answer> hebans){
-        UI_Answers = hebans;
+    public boolean isscale = false;
+    public AnswersRecyclerAdapter(Context mcontext, List<UIAnswer> hebans){
         mContext= mcontext;
+        if(hebans != null){UIAnswers = hebans;}
     }
 
     @Override
@@ -40,16 +42,16 @@ public class AnswersRecyclerAdapter extends  RecyclerView.Adapter<AnswersRecycle
 
     @Override
     public void onBindViewHolder(AnswersRecyclerAdapter.AnswerViewHolder holder, int position) {
+        if(UIAnswers!=null){  holder.hebtext.setText(UIAnswers.get(position).getaHebrew());
+            holder.transtext.setText(UIAnswers.get(position).getaTranslation());}
 
-        holder.hebtext.setText(UI_Answers.get(position).hebrewanswer);
-        holder.transtext.setText(UI_Answers.get(position).translatedanswer);
 
     }
 
     @Override
     public int getItemCount() {
         Log.d(TAG, "getItemCount: called");
-        return ((UI_Answers != null) && (UI_Answers.size() != 0) ? UI_Answers.size() : 0);
+        return ((UIAnswers != null) && (UIAnswers.size() != 0) ? UIAnswers.size() : 0);
     }
     static class AnswerViewHolder extends RecyclerView.ViewHolder {
         private static final String TAG = "AnswerViewHolder";
@@ -58,6 +60,7 @@ public class AnswersRecyclerAdapter extends  RecyclerView.Adapter<AnswersRecycle
         TextView transtext;
         ImageButton hebspeech;
         ImageButton transspeech;
+        TextToSpeech ttsobjEn;
 
         public AnswerViewHolder(View itemView) {
             super(itemView);
@@ -67,6 +70,20 @@ public class AnswersRecyclerAdapter extends  RecyclerView.Adapter<AnswersRecycle
             transtext = (TextView) itemView.findViewById(R.id.textView_trans_ans);
             hebspeech = (ImageButton)  itemView.findViewById(R.id.imageButton_heb);
             transspeech= (ImageButton)  itemView.findViewById(R.id.imageButton_trans);
+            transspeech.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    speak();
+                }
+            });
+            ttsobjEn=new TextToSpeech(itemView.getContext(), new TextToSpeech.OnInitListener() {
+                @Override
+                public void onInit(int status) {
+                    if(status != TextToSpeech.ERROR) {
+                        ttsobjEn.setLanguage(Locale.UK);//getselectedlanguage()
+                    }
+                }
+            });
             hebtext.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
@@ -74,6 +91,10 @@ public class AnswersRecyclerAdapter extends  RecyclerView.Adapter<AnswersRecycle
                 }
             });
 
+        }
+        private void speak(){
+            String toSpeak = hebtext.getText().toString();
+            ttsobjEn.speak(toSpeak, TextToSpeech.QUEUE_ADD, null);
         }
     }
 }

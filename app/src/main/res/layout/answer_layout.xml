@@ -27,7 +27,7 @@
         android:orientation="horizontal">
 
         <ImageButton
-            android:id="@+id/imageButton_heb"
+            android:id="@+id/imageButton_trans"
             android:layout_width="25dp"
             android:layout_height="25dp"
             android:layout_centerVertical="true"
@@ -47,7 +47,8 @@
             android:layout_marginRight="16dp"
             android:gravity="center_vertical"
             android:text="אני מרגיש מצויין"
-            android:textSize="18sp"
+            android:textSize="24sp"
+            android:textStyle="bold"
             android:background="@drawable/label_background"/>
     </RelativeLayout>
 
@@ -59,7 +60,7 @@
         android:orientation="horizontal">
 
         <ImageButton
-            android:id="@+id/imageButton_trans"
+            android:id="@+id/imageButton_heb"
             android:layout_width="25dp"
             android:layout_height="25dp"
             android:layout_centerVertical="true"
@@ -77,7 +78,8 @@
             android:layout_marginStart="17dp"
             android:gravity="center_vertical"
             android:text="I feel great"
-            android:textSize="18sp"
+            android:textSize="24sp"
+            android:textStyle="bold"
             android:layout_alignParentTop="true"
             android:layout_alignParentStart="true"
             android:background="@drawable/label_background"/>
