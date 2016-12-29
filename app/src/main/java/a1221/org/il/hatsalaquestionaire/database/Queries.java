@@ -2,14 +2,17 @@ package a1221.org.il.hatsalaquestionaire.database;
 
 import android.content.Context;
 import android.content.SharedPreferences;
+import android.preference.PreferenceManager;
 
 import java.util.ArrayList;
 import java.util.List;
 
+import a1221.org.il.hatsalaquestionaire.constants.Constants;
 import a1221.org.il.hatsalaquestionaire.entities.ATranslation;
 import a1221.org.il.hatsalaquestionaire.entities.Answer;
 import a1221.org.il.hatsalaquestionaire.entities.CatQ;
 import a1221.org.il.hatsalaquestionaire.entities.Category;
+import a1221.org.il.hatsalaquestionaire.entities.Language;
 import a1221.org.il.hatsalaquestionaire.entities.QTranslation;
 import a1221.org.il.hatsalaquestionaire.entities.Question;
 import a1221.org.il.hatsalaquestionaire.entities.UIAnswer;
@@ -140,5 +143,14 @@ public class Queries {
             }
         }
         return question;
+    }
+
+    public static String getLanguage(int q_id){
+        for(Language l : dbmanager.languages){
+            if(l.get_ID()==q_id){
+                return l.getLanguage();
+            }
+        }
+        return null;
     }
 }
