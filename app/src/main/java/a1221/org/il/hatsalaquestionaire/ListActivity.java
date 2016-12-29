@@ -111,6 +111,7 @@ public class ListActivity extends AppCompatActivity implements RecyclerViewListe
             setTitle("בחר שאלה");
             setQuestionAdapter();
         }else if (MODE.equals("Main_Categories")){
+            setTitle("בחר קטגוריה");
             setMainCategoriesAdapter();
         }
 
@@ -190,8 +191,7 @@ public class ListActivity extends AppCompatActivity implements RecyclerViewListe
             intent.putExtra(Constants.LANGUAGE_ID, lan.get_ID());
             intent.putExtra(Constants.MODE, "Main_Categories");
             startActivity(intent);
-        }
-        if(getIntent().getStringExtra(Constants.MODE).equals("Main_Categories")){
+        }else if(getIntent().getStringExtra(Constants.MODE).equals("Main_Categories")){
             Category lan = mainCategories.get(position);
             int lanid = getIntent().getIntExtra(Constants.LANGUAGE_ID,1);
             Intent intent = new Intent(getBaseContext(), ListActivity.class);
@@ -200,8 +200,7 @@ public class ListActivity extends AppCompatActivity implements RecyclerViewListe
             intent.putExtra(Constants.MODE,"Categories");
 
             startActivity(intent);
-        }
-        if(getIntent().getStringExtra(Constants.MODE).equals("Categories")){
+        }else if(getIntent().getStringExtra(Constants.MODE).equals("Categories")){
             int catid = getIntent().getIntExtra(Constants.CATEGORY_ID,1);
             int lanid = getIntent().getIntExtra(Constants.LANGUAGE_ID,1);
             Category lan = queri.getSubCategories(catid).get(position);
@@ -210,8 +209,15 @@ public class ListActivity extends AppCompatActivity implements RecyclerViewListe
             intent.putExtra(Constants.CATEGORY_ID, lan.get_ID());
             intent.putExtra(Constants.MODE,"Questions");
             startActivity(intent);
+        }else if(getIntent().getStringExtra(Constants.MODE).equals("Questions")) {
+            int catid = getIntent().getIntExtra(Constants.CATEGORY_ID, 1);
+            int lanid = getIntent().getIntExtra(Constants.LANGUAGE_ID, 1);
+            Question lan = queri.getCategoryQuestions(catid).get(position);
+            Intent intent = new Intent(getBaseContext(), AdditionalQuestionsActivity.class);
+            intent.putExtra(Constants.LANGUAGE_ID, lanid);
+            intent.putExtra(Constants.QUESTION_ID, lan.get_ID());
+            startActivity(intent);
         }
-
     }
 
     @Override
@@ -249,6 +255,10 @@ public class ListActivity extends AppCompatActivity implements RecyclerViewListe
         return false;
     }
 
-
-
+    @Override
+    public void onBackPressed() {
+        if(MODE.equals("Languages")) {
+        }else
+            super.onBackPressed();
+    }
 }
